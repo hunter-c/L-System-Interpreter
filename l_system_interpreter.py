@@ -1,3 +1,4 @@
+from curses.ascii import FF
 import turtle
 import random
 
@@ -33,12 +34,19 @@ def draw(iteration, distance=10, angle=30, length_factor=1):
     turtle.tracer(0, 0)
     cursor.speed(0)
     cursor.left(90)
+    # cursor.left(90)
+    # cursor.left(30)
+    # cursor.left(120)
+
+    cursor.penup()
+    cursor.backward(300)
+    cursor.pendown()
     cursor.left(90)
 
-    turtle.setup(width=1700, height=900, startx=None, starty=None)
+    turtle.setup(width=1800, height=1000, startx=None, starty=None)
 
     for op in iteration:
-        if op == "F":
+        if op == "F" or op == "G" or op == "X":
             cursor.forward(distance)
         elif op == "f":
             cursor.penup()
@@ -90,23 +98,50 @@ def main():
     # draw(iterate("F", {"F": "F[+FF][-FF]F[-F][+F]F"}), 10) # plant
     # draw(iterate("FX", {"F": "F","X": ">[-FX]+FX"}, 5), 20, 40, .95) # incomplete
     # draw(iterate("F+F+F", {"F": "F-F+F"}, 8), 10, 120) # triangular grid
-    # draw(iterate("F", {"F":"-F++F-"}, 10), 10, 45) # Levy curve
+    # draw(iterate("F", {"F": "-F++F-"}, 12), 6, 45)  # Levy curve
     # draw(iterate("F", {"F":"+FF--FF+"}, 6), 15, 120) # custom
     # draw(iterate("FXF", {"F":"+FF+", "X":"FF"}, 10), 30, 30) # Lotus of sorts
     # draw(iterate("FXF", {"F":"+FXF+", "X":"FF"}, 7), 30, 30) # geometric lotus shape
-    # draw(iterate("YF", { "G":"F+G+F"}, 10), 10, 60) # sierpinsky triangle
-    # draw(iterate("YF", {"F":"F", "X":"YF+XF+Y", "Y":"XF-YF-X"}, 3), 10, 60) # sierpinsky triangle
-    # draw(iterate("a", {"F": ">F<", "a": "F[+x]Fb", "b": "F[-y]Fa", "x": "a", "y": "b"}, 9)
+
+    # sierpinsky variation
+    # draw(iterate("F-G-G", {"F": "F-G+F+G-F", "G": "GG"}, 6), 7, 120)
+
+    # sierpinsky triangle
+    # draw(iterate("YF", {"F": "F", "X": "YF+XF+Y", "Y": "XF-YF-X"}, 6), 20, 60)
+
+    # twig?
+    # draw(iterate(
+    #     "a", {"F": ">F<", "a": "F[+x]Fb", "b": "F[-y]Fa", "x": "a", "y": "b"}, 9))
 
     # Koch curve
-    # draw(iterate("F-F-F-F", {"F": "F+FF-FF-F-F+F+FF-F-F+F+FF+FF-F"}, 3), 2, 90)
+    # draw(
+    #     iterate("F-F-F-F", {"F": "F+FF-FF-F-F+F+FF-F-F+F+FF+FF-F"}, 2), 4, 90)
+    # draw(
+    #     iterate("F-F-F-F", {"F": "FF-F-F-F-F-F+F"}, 4), 3, 90)
+    # draw(
+    #     iterate("F-F-F-F", {"F": "FF-F-F-F-FF"}, 4), 4, 90)
+    # draw(
+    #     iterate("F-F-F-F", {"F": "FF-F--F-F"}, 4), 3, 90)
+
+    # weird
+    # draw(
+    #     iterate("F+F+F+F+F", {"F": "F-F+F+F+F--F"}, 3), 4, 72)
+
+    # draw(
+    #     iterate("F+F+F+F+F+F", {"F": "F++F-F-F-F-F++F"}, 4), 4, 60)
 
     # islands
-    # draw(iterate("F+F+F+F",
-    #      {"F": "F+f-FF+F+FF+Ff+FF-f+FF-F-FF-Ff-FFF", "f": "ffffff"}, 2), 5, 90)
+    draw(iterate("F+F+F+F",
+         {"F": "F+f-FF+F+FF+Ff+FF-f+FF-F-FF-Ff-FFF", "f": "ffffff"}, 2), 5, 90)
 
     # Crystal
-    draw(iterate("F+F+F+F", {"F": "FF+F++F+F"}, 4), 5, 90)
+    # draw(iterate("F+F+F+F", {"F": "FF+F++F+F"}, 4), 5, 90)
+
+    # plants
+    # draw(iterate("F", {"F": "F[+F]F[-F]F"}, 5), 3, 25.7)
+    # draw(iterate("F", {"F": "F[+F]F[-F][F]"}, 5), 9, 20)
+    # draw(iterate("X", {"F": "FF", "X": "F[+X][-X]FX"}, 7), 3, 26)
+    # draw(iterate("F", {"F": "FF-[-F+F+F]+[+F-F-F]"}, 4), 8, 22.5)
 
     turtle.done()
 
